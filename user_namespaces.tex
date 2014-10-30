@@ -185,7 +185,7 @@ Demo Time [sort of].
    \item Ubuntu 14.10 instance with hostname 'lxc-host'.
    \item 2 users (elsa, anna) are each configured to run lxc unprivileged.
    \item 'showinfo': simple shell filter to 'find' or 'ps' or 'grep'.
-   \item 'mywait': Very Exciting. Run it, it prints its pid, uid, gid.  Then creates a file named 'sleeper-user@hostname' and sleeps forever.
+   \item 'mywait': Very Exciting. Run it, it prints its pid, uid, gid.  Then creates a file named 'sleeper-user@hostname' and sleeps forever. copied into each container's /usr/local/bin.
 \end{enumerate}
 \end{frame}
 
@@ -194,8 +194,8 @@ Host Processes / Users.
 \includegraphics[width=\textwidth]{screen-host-info.png}
 %Note:
 %  - Multiuser system /sbin/init has pid1.
-%  - the userns output of 'ps' shows each of the highlighted processes
-%    are in the same user namespace.
+%  - the userns output of 'ps' shows a uniqiue inode number for each
+%    namespace.  The highlighted processes are in the same user namespace.
 %  - elsa and anna are both running 'mywait' as unpriviledged users
 %    in the top level user namespace.
 \end{frame}
@@ -214,6 +214,7 @@ LXC Containers and Configuration
 \begin{frame}
 Anna's containers: \textbf{anna-c1}, anna-c2
 \includegraphics[width=\textwidth]{screen-anna-c1.png}
+% Note:
 %  - inside container anna-c1, '/sbin/init' believes itself to be
 %    pid 1, but from outside it is 6900.
 %  - note uid/gid of /sbin/init and 'sleeper-anna-c1' are 2000000
@@ -232,12 +233,19 @@ Anna's containers: anna-c1, \textbf{anna-c2}
 \begin{frame}
 Elsa's Containers: \textbf{elsa-c1}, elsa-c2
 \includegraphics[width=\textwidth]{screen-elsa-c1.png}
+%Note:
+%  - elsa's second container runs 'mywait' as non-root
+%  - note that /sbin/init and sleeper-ubuntu processes have different uid/gid
+%  - inside container uid/gid is allocated just as it is on the host
+%    even supporting sub-namepaces.
 \end{frame}
 
 \begin{frame}
 Elsa's Containers: elsa-c1, \textbf{elsa-c2}
 \includegraphics[width=\textwidth]{screen-elsa-c2.png}
-\textit{Note: next year is our year.}
+%Note:
+%  - elsa-c1 has same pid as elsa-c2's sleeper when viewed inside.
+%    this is random(ish) coincidence.
 \end{frame}
 
 \begin{frame}[fragile]
