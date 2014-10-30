@@ -1,3 +1,5 @@
+all: user_namespaces.pdf
+
 clean:
 	rm -f *.aux *.log *nav *.out *.pdf *.snm *.toc *.png *.vrb
 
@@ -8,5 +10,3 @@ clean:
 %.pdf: %.tex
 	pdflatex $^
 	pdflatex $^
-
-all: user_namespaces.pdf
