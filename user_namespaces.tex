@@ -113,6 +113,30 @@ Canonical, Inc \\ % Your institution for the title page
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
+\section{Quick Introduction to Containers}
+\begin{frame}
+   \frametitle{Linux Containers?}
+   \begin{itemize}
+      \item operating system-level virtualization method for running multiple isolated Linux systems (containers) on a single control host.
+      \item "chroot on steroids"
+      \item "it's like bsd jails" (or solaris zones)
+      \item from the inside looks like a vm
+      \item from the outside looks like processes
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}
+%   \frametitle{Linux Kernel Containment features}
+%   \begin{itemize}
+%      \item Kernel namespaces (ipc, uts, mount, pid, network and user). Absent: sys, proc
+%      \item Apparmor and SELinux profiles
+%      \item Kernel capabilities (sys\_boot, sys\_chroot, sys\_module, net\_bind\_service, sys\_mknod)
+%      \item Control groups / cgroups (limit memory, accounting/throttling, limit device node operations)
+%      \item Chroots (using pivot\_root)
+%      \item Seccomp policies
+%   \end{itemize}
+%\end{frame}
+
 %------------------------------------------------
 \section{State of Containers Prior to User namespaces} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 \begin{frame}
