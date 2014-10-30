@@ -81,6 +81,7 @@
 
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\graphicspath{ {images/} }
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -175,6 +176,68 @@ Canonical, Inc \\ % Your institution for the title page
 	\item Answer: "Wait for user namespaces"
 	\end{enumerate}
 \end{enumerate}
+\end{frame}
+
+\section{Graphical Demo}
+\begin{frame}
+Demo Time [sort of].
+\begin{enumerate}
+   \item Ubuntu 14.10 instance with hostname 'lxc-host'.
+   \item 2 users (elsa, anna) are each configured to run lxc unprivileged.
+   \item 'showinfo': simple shell filter to 'find' or 'ps' or 'grep'.
+   \item 'mywait': Very Exciting. Run it, it prints its pid, uid, gid.  Then creates a file named 'sleeper-user@hostname' and sleeps forever.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+Host Processes / Users.
+\includegraphics[width=\textwidth]{screen-host-info.png}
+%Note:
+%  - Multiuser system /sbin/init has pid1.
+%  - the userns output of 'ps' shows each of the highlighted processes
+%    are in the same user namespace.
+%  - elsa and anna are both running 'mywait' as unpriviledged users
+%    in the top level user namespace.
+\end{frame}
+
+\begin{frame}
+LXC Containers and Configuration
+\includegraphics[width=\textwidth]{screen-lxc-config.png}
+%  - anna and elsa are given 1 million "subuid" and "subgid" each
+%  - fields there say: <user>:start:count
+%  - typical linux system allocates 'nobody' to 65535. means without
+%    customization, easist solution is to just give 65535
+%    thats less than ideal, though as you can only have 65535 of those.
+%  - lxc config allows you to map all or a portion of those to a container
+\end{frame}
+
+\begin{frame}
+Anna's containers: \textbf{anna-c1}, anna-c2
+\includegraphics[width=\textwidth]{screen-anna-c1.png}
+%  - inside container anna-c1, '/sbin/init' believes itself to be
+%    pid 1, but from outside it is 6900.
+%  - note uid/gid of /sbin/init and 'sleeper-anna-c1' are 2000000
+\end{frame}
+
+\begin{frame}
+Anna's containers: anna-c1, \textbf{anna-c2}
+\includegraphics[width=\textwidth]{screen-anna-c2.png}
+%Note:
+%  - anna's second container is given a different id_map range.
+%    2,100,000 rather than 2,000,000
+%  - container escape from anna-c2 leaves user 2100000, unable to read files
+%    owned by anna (1001) or even anna-c1. (Unless they're world readable).
+\end{frame}
+
+\begin{frame}
+Elsa's Containers: \textbf{elsa-c1}, elsa-c2
+\includegraphics[width=\textwidth]{screen-elsa-c1.png}
+\end{frame}
+
+\begin{frame}
+Elsa's Containers: elsa-c1, \textbf{elsa-c2}
+\includegraphics[width=\textwidth]{screen-elsa-c2.png}
+\textit{Note: next year is our year.}
 \end{frame}
 
 \begin{frame}[fragile]
