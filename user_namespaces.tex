@@ -150,7 +150,7 @@ Canonical, Inc \\ % Your institution for the title page
 	\item i.e. pid 1 is not global init
 	\item {\tt /etc/shadow} not accessible
 	\end{itemize}
-\item Many leaks ({\tt /proc/pid/fd/N}
+\item Many leaks ({\tt /proc/pid/fd/N})
 \end{itemize}
 
 \textbf{Control groups}
@@ -202,6 +202,64 @@ Canonical, Inc \\ % Your institution for the title page
 	\end{enumerate}
 \end{enumerate}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{User namespaces}
+\textbf{Goals}
+\begin{enumerate}
+\item Uid separation
+	\begin{enumerate}
+	\item c1.500 != c2.500
+	\item Separate access controls (kill, open, etc)
+	\item Separate accounting, limits
+	\end{enumerate}
+\item Container root privileged over container
+	\begin{enumerate}
+	\item uids
+	\item network
+	\item etc
+	\end{enumerate}
+\item Container root has no privilege outside of container
+	\begin{enumerate}
+	\item Root in container as safe as unpriv user on host
+	\item Safe for use by untrusted users
+	\end{enumerate}
+\item Able to be nested
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\textbf{User namespace design}
+\begin{enumerate}
+\item Uids map 1-1 to kuids
+	\begin{enumerate}
+	\item Translated at kernel-user boundary
+	\item Default mapping 0-4294967295:0-4294967295
+	\item Unmapped userids show up as -1, has `o' perms
+	\item Unpriv user can only map own host uid
+	\end{enumerate}
+\item Other namespaces owned by a user ns
+	\begin{enumerate}
+	\item Root in ns has full privilege over what it owns
+	\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\textbf{Uid delegation}
+\begin{enumerate}
+\item Root delegates {\em subuids} to users
+	\begin{enumerate}
+	\item {\tt /etc/subuid} and {\tt /etc/subgid}: \
+serge:100000:65536
+	\item Set using {\tt usermod}: \
+usermod -v 100000-200000 -w 100000-200000 serge
+	\end{enumerate}
+\item Setuid-root programs write to {\tt /proc/self/\{ug\}id\_map}
+\item Each user may be delegated a set of subuids and subgids
+\end{enumerate}
+\end{frame}
+
 
 \section{Graphical Demo}
 \begin{frame}
@@ -271,64 +329,6 @@ Elsa's Containers: elsa-c1, \textbf{elsa-c2}
 %Note:
 %  - elsa-c1 has same pid as elsa-c2's sleeper when viewed inside.
 %    this is random(ish) coincidence.
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{User namespaces}
-\textbf{Goals}
-\begin{enumerate}
-\item Uid separation
-	\begin{enumerate}
-	\item c1.500 != c2.500
-	\item Separate access controls (kill, open, etc)
-	\item Separate accounting, limits
-	\end{enumerate}
-\item Container root privileged over container
-	\begin{enumerate}
-	\item uids
-	\item network
-	\item etc
-	\end{enumerate}
-\item Container root has no privilege outside of container
-	\begin{enumerate}
-	\item Root in container as safe as unpriv user on host
-	\item Safe for use by untrusted users
-	\end{enumerate}
-\item Able to be nested
-\end{enumerate}
-\end{frame}
-
-\begin{frame}[fragile]
-\textbf{User namespace design}
-\begin{enumerate}
-\item By Eric Biederman
-\item Uids map 1-1 to kuids
-	\begin{enumerate}
-	\item Translated at kernel-user boundary
-	\item Default mapping 0-4294967295:0-4294967295
-	\item Unmapped userids show up as -1, has `o' perms
-	\item Unpriv user can only map own host uid
-	\end{enumerate}
-\item Other namespaces owned by a user ns
-	\begin{enumerate}
-	\item Root in ns has full privilege over what it owns
-	\end{enumerate}
-\end{enumerate}
-\end{frame}
-
-\begin{frame}
-\textbf{Uid delegation}
-\begin{enumerate}
-\item Root delegates {\em subuids} to users
-	\begin{enumerate}
-	\item {\tt /etc/subuid} and {\tt /etc/subgid}: \
-serge:100000:65536
-	\item Set using {\tt usermod}: \
-usermod -v 100000-200000 -w 100000-200000 serge
-	\end{enumerate}
-\item Setuid-root programs write to {\tt /proc/self/\{ug\}id\_map}
-\item Each user may be delegated a set of subuids and subgids
-\end{enumerate}
 \end{frame}
 
 \begin{frame}
