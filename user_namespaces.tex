@@ -19,6 +19,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{hyperref}
 
 \mode<presentation> {
 
@@ -328,6 +329,38 @@ usermod -v 100000-200000 -w 100000-200000 serge
 \item Setuid-root programs write to {\tt /proc/self/\{ug\}id\_map}
 \item Each user may be delegated a set of subuids and subgids
 \end{enumerate}
+\end{frame}
+
+\begin{frame}
+\textbf{Linux Distribution / Toolkit Support}
+\begin{itemize}
+\item Linux kernel: added in 3.8, necessary improvements in 3.10
+\item Distros:
+  \begin{itemize}
+  \item Ubuntu 14.04+
+  \item RedHat Enterprise Linux
+  \item SuSE
+  \end{itemize}
+\item Tools:
+  \begin{itemize}
+    \item lxc: in 1.0 improvements in 1.1
+    \item libvirt: yes, \href{http://libvirt.org/git/?p=libvirt.git;a=commit;h=6c30ea2c353aa664397774ee42c425236371788b}{current versions}
+    \item nova libvirt-lxc driver: \href{https://blueprints.launchpad.net/nova/+spec/libvirt-lxc-user-namespaces}{Juno}
+    \item nova-compute-flex: yes
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\textbf{More Info}
+\begin{itemize}
+  \item These Slides: \href{https://github.com/hallyn/ods-2014-userns}
+  \item Serge Hallyn <serge.hallyn@canonical.com> [freenode: 'hallyn']
+  \item Scott Moser <scott.moser@canonical.com> [freenode: 'smoser']
+  \item \href{http://lwn.net/Articles/531114/}{'Namespaces In Operation' on lwn.net}
+  \item \href{https://www.stgraber.org/2013/12/20/lxc-1-0-blog-post-series/}{10 part series on LXC 1.0}
+  \item \href{http://lwn.net/Articles/515034/}{LWN.net Secure Linux containers}
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------
