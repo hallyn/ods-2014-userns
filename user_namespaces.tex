@@ -332,14 +332,35 @@ usermod -v 100000-200000 -w 100000-200000 serge
 \end{frame}
 
 \begin{frame}
-\textbf{Linux Distribution / Toolkit Support}
+\textbf{How safe is this?}
+\begin{itemize}
+\item users including root in container are \textit{unpriviledged} users, but are local users.
+% - Its been best practice for years to run services as non-root.
+%   Now the service can think its root.
+\item Linux Kernel CVEs
+  \begin{itemize}
+  \item As of 2014-11-02, per \url{http://cvedetails.com}
+  \item \href{http://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/year-2014/Linux-Linux-Kernel.html}{101} Total
+  \item \href{http://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/year-2014/opgpriv-1/Linux-Linux-Kernel.html}{14} Priviledge Gain
+  \end{itemize}
+\item Use Cases
+  \begin{itemize}
+  \item run existing service in container: +1
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\textbf{Distribution / Toolkit Support}
 \begin{itemize}
 \item Linux kernel: added in 3.8, necessary improvements in 3.10
 \item Distros:
   \begin{itemize}
   \item Ubuntu 14.04+
-  \item RedHat Enterprise Linux
-  \item SuSE
+  \item Red Hat Enterprise Linux: 7 (3.10.0-123 kernel)
+        % https://access.redhat.com/articles/3078
+  \item SUSE Linux Enterprise Server: 12 (3.12.28-4.6)
+        % https://www.novell.com/support/kb/doc.php?id=3594951
   \end{itemize}
 \item Tools:
   \begin{itemize}
@@ -354,7 +375,7 @@ usermod -v 100000-200000 -w 100000-200000 serge
 \begin{frame}
 \textbf{More Info}
 \begin{itemize}
-  \item These Slides: \href{https://github.com/hallyn/ods-2014-userns}
+  \item These Slides: \url{https://github.com/hallyn/ods-2014-userns}
   \item Serge Hallyn <serge.hallyn@canonical.com> [freenode: 'hallyn']
   \item Scott Moser <scott.moser@canonical.com> [freenode: 'smoser']
   \item \href{http://lwn.net/Articles/531114/}{'Namespaces In Operation' on lwn.net}
