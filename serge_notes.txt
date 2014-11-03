@@ -5,6 +5,7 @@ Containers have been around awhile
 
 	new features added over time
 
+[SKIP to slide 6 at at :41]
 		mount ns ~ 2000
 		nsproxy, utsns, pidns in 2006
 			(more ns later)
