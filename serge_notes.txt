@@ -16,4 +16,8 @@ Containers have been around awhile
 
 	meanwhile, what did we do?
 
-	(slides 4-5)
+	At first, host was frequently damaged by containers
+		sound card resets, / re-mounte ro on container shutdown
+
+	Worked out how to prevent accidental damage to host by container
+		slides 4-6
