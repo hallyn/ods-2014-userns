@@ -357,13 +357,13 @@ Elsa's Containers: elsa-c1, \textbf{elsa-c2}
 \begin{frame}
 \textbf{Use Cases}
   \begin{itemize}
-  \item run existing service in container
+  \item run existing service in container: straightforward win
 %% isolation and security benefit with criu allows mobility
-  \item move kvm / vm workload into container
+  \item move kvm / vm workload into container: performance win
 %% performance benefit, some things can't be done.
-  \item provide trusted users "root" access
+  \item provide trusted users "root" access: yes
 %% trusted users will not take cpu, memory, avoid unintended mistakes
-  \item provide untrusted users "root" access
+  \item provide untrusted users "root" access: maybe (if you provide shell access, same vulnerability level)
 %% if you felt comfortable with shell access, then this is also safe.
   \end{itemize}
 \end{frame}
