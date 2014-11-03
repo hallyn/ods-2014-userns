@@ -1,0 +1,7 @@
+40 minutes total [30-05], 35 talk, 5 questions.
+Time goals:
+ 3  min: 30 - 33   Intro Us / Basic containers [slides 1-3]
+ 10 min: 33 - 45   serge slides containers [slides 4-9]
+ 15 min: 45 - 00   smoser graphical demo [slides 11-16]
+ 5  min: 00 - 05   smoser cve / how safe is this [slides 17-19]
+ 5  min: 05 - 10   questions
