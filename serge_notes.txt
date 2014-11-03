@@ -7,17 +7,19 @@ Containers have been around awhile
 
 		mount ns ~ 2000
 		nsproxy, utsns, pidns in 2006
+			(more ns later)
+			(go over ns in slide 4)
 		cgroups - 2007
+			(slide 4)
+		posix cap bounding set - 2008
+			(slide 4)
+		LSMs ~ 2000
+			(slide 5)
+		v2 seccomp: 2012
+			(slide 5)
 
 	first userns patch in 2007
 		separate accounting only
 		no isolation
+
 	full user namespaces - most recent feature - Dec 2012
-
-	meanwhile, what did we do?
-
-	At first, host was frequently damaged by containers
-		sound card resets, / re-mounte ro on container shutdown
-
-	Worked out how to prevent accidental damage to host by container
-		slides 4-6
