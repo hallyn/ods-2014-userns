@@ -1,0 +1,57 @@
+Slide 2: Overview
+Slide 3: Linux Containers
+ - essentially run multiple different [linux] operating systems
+   on the same set of hardware.
+ - there is no "container" in the linux kernel, the notion of
+   container is created using several kernel isolation and security features
+ - current work on criu (checkpoint and restore in userspace) will allow
+   moving container to another system
+
+Slide 11: Host Processes / Users
+  - Multiuser system /sbin/init has pid1.
+  - the userns output of 'ps' shows a uniqiue inode number for each
+    namespace.  The highlighted processes are in the same user namespace.
+  - elsa and anna are both running 'mywait' as unpriviledged users
+    in the top level user namespace.
+
+Slide 12: LXC Containers and Configuration
+  - anna and elsa are given 1 million "subuid" and "subgid" each
+  - fields there say: <user>:start:count
+  - typical linux system allocates 'nobody' to 65535. means without
+    customization, easist solution is to just give 65535
+    thats less than ideal, though as you can only have 65535 of those.
+  - lxc config allows you to map all or a portion of those to a container
+
+Slide 13: Anna's containers: anna-1
+  - inside container anna-c1, '/sbin/init' believes itself to be
+    pid 1, but from outside it is 6900.
+  - note uid/gid of /sbin/init and 'sleeper-anna-c1' are 2000000
+
+Slide 14: Anna's containers: anna-2
+  - anna's second container is given a different id_map range.
+    2,100,000 rather than 2,000,000
+  - container escape from anna-c2 leaves user 2100000, unable to read files
+    owned by anna (1001) or even anna-c1. (Unless they're world readable).
+
+Slide 15: Elsa's containers: elsa-c1
+  - elsa's second container runs 'mywait' as non-root
+  - note that /sbin/init and sleeper-ubuntu processes have different uid/gid
+  - inside container uid/gid is allocated just as it is on the host
+    even supporting sub-namepaces.
+
+Slide 16: Elsa's Containers: elsa-c2
+  - elsa-c1 has same pid as elsa-c2's sleeper when viewed inside.
+    this is random(ish) coincidence.
+
+Slide 17: How safe is this
+  - Its been best practice for years to run services as non-root.
+    Now the service can think its root.
+  - users including root inside a container are unpriviledged users
+    but are still *local* users.
+  - you are then vulnerable to a priviledge escalation attack where
+    the local non-root user became "real root"
+  - container provides useful isolation from the host while still
+    allowing shared resources
+
+Slide 18:
+ 
