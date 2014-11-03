@@ -1,0 +1,19 @@
+Containers have been around awhile
+
+	no "container" in kernel
+	userspace fiction built on set of kernel features
+
+	new features added over time
+
+		mount ns ~ 2000
+		nsproxy, utsns, pidns in 2006
+		cgroups - 2007
+
+	first userns patch in 2007
+		separate accounting only
+		no isolation
+	full user namespaces - most recent feature - Dec 2012
+
+	meanwhile, what did we do?
+
+	(slides 4-5)
