@@ -341,13 +341,23 @@ Elsa's Containers: elsa-c1, \textbf{elsa-c2}
   \begin{itemize}
   \item As of 2014-11-02, per \url{http://cvedetails.com}
   \item \href{http://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/year-2014/Linux-Linux-Kernel.html}{101} Total
-  \item \href{http://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/year-2014/opgpriv-1/Linux-Linux-Kernel.html}{14} Priviledge Gain
-  \end{itemize}
-\item Use Cases
-  \begin{itemize}
-  \item run existing service in container: +1
+  \item \href{http://www.cvedetails.com/vulnerability-list/vendor_id-33/product_id-47/year-2014/opgpriv-1/Linux-Linux-Kernel.html}{14} Priviledge Gain (some of these exploitable from kvm)
   \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\textbf{Use Cases}
+  \begin{itemize}
+  \item run existing service in container
+%% isolation and security benefit with criu allows mobility
+  \item move kvm / vm workload into container
+%% performance benefit, some things can't be done.
+  \item provide trusted users "root" access
+%% trusted users will not take cpu, memory, avoid unintended mistakes
+  \item provide untrusted users "root" access
+%% if you felt comfortable with shell access, then this is also safe.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -368,6 +378,7 @@ Elsa's Containers: elsa-c1, \textbf{elsa-c2}
     \item libvirt: yes, \href{http://libvirt.org/git/?p=libvirt.git;a=commit;h=6c30ea2c353aa664397774ee42c425236371788b}{current versions}
     \item nova libvirt-lxc driver: \href{https://blueprints.launchpad.net/nova/+spec/libvirt-lxc-user-namespaces}{Juno}
     \item nova-compute-flex: yes
+    \item Parallels: early 2015
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -378,9 +389,9 @@ Elsa's Containers: elsa-c1, \textbf{elsa-c2}
   \item These Slides: \url{https://github.com/hallyn/ods-2014-userns}
   \item Serge Hallyn <serge.hallyn@canonical.com> [freenode: 'hallyn']
   \item Scott Moser <scott.moser@canonical.com> [freenode: 'smoser']
-  \item \href{http://lwn.net/Articles/531114/}{'Namespaces In Operation' on lwn.net}
-  \item \href{https://www.stgraber.org/2013/12/20/lxc-1-0-blog-post-series/}{10 part series on LXC 1.0}
-  \item \href{http://lwn.net/Articles/515034/}{LWN.net Secure Linux containers}
+  \item \href{http://lwn.net/Articles/531114/}{'Namespaces In Operation'} [lwn.net]
+  \item \href{https://www.stgraber.org/2013/12/20/lxc-1-0-blog-post-series/}{10 part series on LXC 1.0} [stgraber.net]
+  \item \href{http://lwn.net/Articles/515034/}{LWN.net Secure Linux containers} [lwn.net]
 \end{itemize}
 \end{frame}
 
